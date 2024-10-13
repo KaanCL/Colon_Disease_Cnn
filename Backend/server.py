@@ -1,4 +1,5 @@
 from flask import Flask ,request, jsonify
+from flask_cors import CORS
 import os
 
 from model import Model
@@ -6,6 +7,11 @@ from model import Model
 app = Flask(__name__)
 
 model = None
+CORS(app)
+
+@app.route("/")
+def main():
+    return "Server is Running"
 
 @app.route("/upload",methods=["POST"])
 
