@@ -10,7 +10,6 @@ model = None
 @app.route("/upload",methods=["POST"])
 
 def classify_image():
-
     try:
          file = request.files['file']
          file_path = os.path.join('Uploads',file.filename)
