@@ -3,7 +3,7 @@ import {useDropzone} from 'react-dropzone';
 
 function Dropzone({onFileDrop}) {
 
-  const [file,setFile] = useState("");
+  const [imageUrl,setImageUrl]=useState("");
 
   const dropzoneStyle = {
     width:"50%",
@@ -15,24 +15,25 @@ function Dropzone({onFileDrop}) {
   };
 
   const onDrop = useCallback(acceptedFiles => {
-    var filePath = acceptedFiles[0]['path']
-    setFile(filePath)
-    console.log(filePath)
-    onFileDrop(filePath)
- 
-  
+    const selectedFile = acceptedFiles[0]
+    const fileURL = URL.createObjectURL(selectedFile);
+
+    onFileDrop(selectedFile)
+    setImageUrl(fileURL)
+
   }, [])
-  const {getRootProps,getInputProps,isDragActive} = useDropzone({onDrop})
+  const {getRootProps,getInputProps,isDragActive} = useDropzone({onDrop,multiple:false,accept:"image/*"})
 
   return (
     <div  {...getRootProps()} style={dropzoneStyle}>
       <input {...getInputProps()}/>
       {
        isDragActive ?
-       <h2>Görüntüyü sürükleyin...</h2> :
+       <h2>Görüntüyü bırakın...</h2> :
        <h2>Görüntüyü buraya sürükleyip bırakın veya seçmek için tıklayın</h2>
 
       }
+       {imageUrl && <img src={imageUrl} alt="Selected File" style={{ marginTop: '20px', maxWidth: '100%' }} />}
     </div>
 
   )
