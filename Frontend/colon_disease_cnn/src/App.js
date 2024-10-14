@@ -20,8 +20,8 @@ function App() {
 
 
   useEffect(()=>{
-    if(file){
-       handleData()
+    if(file){ 
+      handleData() 
     }
   })
 
@@ -30,7 +30,7 @@ function App() {
 
     var formData = new FormData();
     formData.append('file',file);
-    console.log(formData)
+    console.log(file)
 
     try{
       const response = await fetch('http://localhost:5000/upload',{

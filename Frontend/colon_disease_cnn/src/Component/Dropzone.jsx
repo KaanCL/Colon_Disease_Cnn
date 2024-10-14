@@ -18,7 +18,13 @@ function Dropzone({onFileDrop}) {
     const selectedFile = acceptedFiles[0]
     const fileURL = URL.createObjectURL(selectedFile);
 
-    onFileDrop(selectedFile)
+    if(selectedFile['type'] == "image/jpeg" || selectedFile['type'] == "image/png"){
+      onFileDrop(selectedFile)
+    }
+    else{
+       alert("Lütfen JPEG formatında bir dosya seçiniz !")
+    }
+
     setImageUrl(fileURL)
 
   }, [])
