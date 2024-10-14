@@ -1,6 +1,7 @@
-import React,{useCallback,useState} from 'react';
+import React,{useCallback,useState,useEffect} from 'react';
 import './App.css';
 import Dropzone from './Component/Dropzone';
+import Button from "react-bootstrap/Button"; 
 
 function App() {
 
@@ -15,9 +16,14 @@ function App() {
   const [file,setFile] = useState("");
   const [result,setResult] = useState("");
 
-  const handleFileDrop = (filePath) =>{
-    setFile(filePath)
-  }
+  const handleFileDrop = (filePath) =>{setFile(filePath)}
+
+
+  useEffect(()=>{
+    if(file){
+       handleData()
+    }
+  })
 
 
   const handleData=async() => {
@@ -46,9 +52,8 @@ function App() {
     <div className='container' style={containerStyle}>
      
     <Dropzone onFileDrop={handleFileDrop}></Dropzone>
-    <h1>Selected File:{file['path']}</h1>
+    <h1>Seçilen Görüntü: {file['path']}</h1>
     {result && <h1>Sonuç: {result}</h1>}
-    <button onClick={handleData}>Yükle</button>
     </div>
   );
 }
